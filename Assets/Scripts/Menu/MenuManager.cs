@@ -12,6 +12,18 @@ public class MenuManager : MonoBehaviour
         Instance = this;
     }
 
+    public void OpenMenu(string menuName)
+    {
+        for (int i = 0; i < menus.Length; i++)
+        {
+            if (menus[i].name == menuName)
+            {
+                OpenMenu(menus[i]);
+            }
+
+        }
+        
+    }
 
     public void OpenMenu(Menu menu)
     {
