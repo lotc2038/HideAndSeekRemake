@@ -12,6 +12,8 @@ public class MenuManager : MonoBehaviour
         Instance = this;
     }
 
+    // TODO: Переделать меню менеджер
+
     public void OpenMenu(string menuName)
     {
         for (int i = 0; i < menus.Length; i++)

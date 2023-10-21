@@ -19,9 +19,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected to Master Server");
-        PhotonNetwork.JoinLobby();
+        PhotonNetwork.JoinLobby();  
     }
 
+
+    public void CreateRoom()
+    {
+        PhotonNetwork.CreateRoom("test");
+    }
 
 
 }
