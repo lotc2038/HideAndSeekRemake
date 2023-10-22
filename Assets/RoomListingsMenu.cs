@@ -17,6 +17,10 @@ public class RoomListingsMenu : MonoBehaviourPunCallbacks
        foreach (RoomInfo roomInfo in roomList)
         {
             RoomItem item = Instantiate(_roomItem, _content);
+            if(item != null)
+            {
+                item.SetRoomInfo(roomInfo);
+            }
         }
     }
 
