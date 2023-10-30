@@ -16,6 +16,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Connecting to Master Server...");
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.NickName = "Player " + Random.Range(1000, 9999);
+        PhotonNetwork.AutomaticallySyncScene = true;
 
     }
 
@@ -28,6 +29,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinOrCreateRoom(roomName.text, roomOptions, TypedLobby.Default);
     }
 
+    public void StartGame()
+    {
+        PhotonNetwork.LoadLevel("Test");
+    }
 
 
     public void LeaveRoom()
