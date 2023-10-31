@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System.IO;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class PlayerManager : MonoBehaviour
 
     public void playerInitialization()
     {
-        //photonNetwork instantiate...
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), Vector3.zero, Quaternion.identity);
     }
 
 }
