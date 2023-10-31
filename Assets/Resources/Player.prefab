@@ -149,6 +149,8 @@ MonoBehaviour:
   mouseSensitivity: 2
   moveSpeed: 4
   jumpForce: 0
+  rotateSpeed: 5
+  cameraTransform: {fileID: 2453335783276343137}
 --- !u!114 &2018812825418676508
 MonoBehaviour:
   m_ObjectHideFlags: 0
