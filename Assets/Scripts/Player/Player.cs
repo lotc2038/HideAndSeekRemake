@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Player : MonoBehaviourPunCallbacks, IDamageable
+public class Player : MonoBehaviourPunCallbacks, IDamageable, IShooting
 {
-
-    public int maxHealth = 100;
-    private int currentHealth;
-    private int range = 100;
-    public Camera cameraHolder;
+    private PlayerHealth health;
+    private Gun gun;
+    public Camera playerCamera;
 
     private void Start()
     {
-        currentHealth = maxHealth;
+        health = new PlayerHealth();
+        gun = new Gun(GetComponentInChildren<Camera>());
     }
 
     private void Update()
@@ -23,48 +22,21 @@ public class Player : MonoBehaviourPunCallbacks, IDamageable
 
         if (Input.GetButtonDown("Fire1"))
         {
-            Shoot();
+            gun.Shoot();
         }
     }
 
-    [PunRPC]
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        Debug.Log($"{currentHealth}");
-        if (currentHealth <= 0)
-        {
-            Debug.Log("Dead");
-        }
-
+        health.TakeDamage(damage);
     }
 
-    [PunRPC]
     public void Shoot()
     {
-        Ray ray = cameraHolder.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-        RaycastHit hitInfo;
-
-        if (Physics.Raycast(ray, out hitInfo, range))
-        {
-            PhotonView target = hitInfo.transform.GetComponent<PhotonView>();
-
-            if (target != null)
-            {
-                IDamageable targetHealth = hitInfo.transform.GetComponent<IDamageable>();
-
-                if (targetHealth != null)
-                {
-                    targetHealth.TakeDamage(10);
-                }
-            }
-        }
+        gun.Shoot();
     }
 
-    
     public void TurnToItem()
     {
-
     }
-
 }
