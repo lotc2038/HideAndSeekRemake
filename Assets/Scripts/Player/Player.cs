@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Player : MonoBehaviourPunCallbacks, IDamageable, IShooting
+public class Player : MonoBehaviourPunCallbacks, IDamageable, IShooting, IProp
 {
     private PlayerHealth health;
     private Gun gun;
@@ -36,7 +36,11 @@ public class Player : MonoBehaviourPunCallbacks, IDamageable, IShooting
         gun.Shoot();
     }
 
-    public void TurnToItem()
+    public void BecomeProp()
     {
+        if (Input.GetButtonDown("Fire2"))
+        {
+
+        }
     }
 }
