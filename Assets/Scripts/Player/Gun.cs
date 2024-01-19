@@ -2,37 +2,52 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class Gun : IShooting
+public class Gun : MonoBehaviour
 {
-    private const int damagePerShot = 10;
-    private const int range = 100;
+    [SerializeField]
+    public int damagePerShot;
+    public int range;
+    public int fireRate;
+    public int spread;
 
-    private Camera cameraHolder;
+    public int maxAmmo=10;
+    private int currentAmmo = 1;
+    public float reloadTime = 1f;
 
-    public Gun(Camera cameraHolder)
+
+
+    public virtual void Shoot()
     {
-        this.cameraHolder = cameraHolder;
-    }
+        if (currentAmmo <= 0) {
+            Debug.Log("Need reload");
+            Reload();
+            Debug.Log("Realoded");
+        }
 
-    public void Shoot()
-    {
-        Ray ray = cameraHolder.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-        RaycastHit hitInfo;
-
-        if (Physics.Raycast(ray, out hitInfo, range))
+        var direction = transform.forward;
+        var ray = new Ray(transform.position, direction);
+        currentAmmo--;
+        if(Physics.Raycast(ray, out RaycastHit hitInfo, range))
         {
-            HandleShot(hitInfo.transform);
+           var hitCollider = hitInfo.collider;
+
+            if(hitCollider.TryGetComponent(out IDamageable damageable))
+            {
+                damageable.TakeDamage(damagePerShot);
+            }
+
         }
     }
 
-    private void HandleShot(Transform hitTransform)
+    public void Reload()
     {
-        IDamageable targetDamageable = hitTransform.GetComponent<IDamageable>();
-
-      if (targetDamageable != null)
-      {
-            targetDamageable.TakeDamage(damagePerShot);
-      }
+        //Сделать через событие или корутину?
+        Debug.Log("Reloading");
+        currentAmmo = maxAmmo;
+        
     }
+
+
 }

@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class PlayerHealth : IDamageable
+public class Health : IDamageable
 {
     private int currentHealth;
     private const int maxHealth = 100;
+    public event Action onDeath;
 
-    public PlayerHealth()
+    public Health()
     {
         currentHealth = maxHealth;
     }
@@ -20,6 +22,7 @@ public class PlayerHealth : IDamageable
         if (currentHealth <= 0)
         {
             Debug.Log("Dead");
+            onDeath?.Invoke();
         }
     }
 }

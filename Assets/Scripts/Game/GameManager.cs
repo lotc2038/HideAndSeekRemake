@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        PhotonNetwork.Instantiate(PlayerPrefab.name, new Vector3(Random.Range(-10f, 10f), 1), Quaternion.identity); //TODO:  подправить спавн
+        PhotonNetwork.Instantiate(PlayerPrefab.name, new Vector3(Random.Range(-10f, 10f), 2), Quaternion.identity); //TODO:  подправить спавн
         if (PhotonNetwork.IsMasterClient)
         {
             StartMatch();

@@ -11,18 +11,17 @@ public class PlayerController : MonoBehaviour
     float verticalLookRotation;
     
     //TODO: Сделать передачу никнейма и команды игрока
-   
 
-    public GameObject cameraHolder;
 
     Rigidbody rb;
     PhotonView pv;
-
+    private Camera cameraHolder;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         pv = GetComponent<PhotonView>();
+        cameraHolder = GetComponentInChildren<Camera>();
 
     }
 

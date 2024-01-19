@@ -1,4 +1,5 @@
-public interface IProp
+
+public interface IProp 
 {
-    void BecomeProp();
+
 }
