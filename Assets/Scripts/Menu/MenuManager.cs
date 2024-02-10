@@ -12,7 +12,7 @@ public class MenuManager : MonoBehaviour
         Instance = this;
     }
 
-    // TODO: Переделать меню менеджер
+    // TODO: РџРµСЂРµРґРµР»Р°С‚СЊ РјРµРЅСЋ РјРµРЅРµРґР¶РµСЂ
 
     public void OpenMenu(string menuName)
     {

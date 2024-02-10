@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class MatchTimer 
 {
-    private float startTime;
-    private float matchDuration = 15.0f;
+    private float _startTime;
+    private float _matchDuration = 15.0f;
 
-    public event Action onEnded;
+    public event Action OnEnded;
 
     public void StartTimer()
     {
-        startTime = Time.time;
+        _startTime = Time.time;
     }
 
     public void UpdateTimer()
     {
-        float currentTime = Time.time - startTime;
-        float remainingTime = matchDuration - currentTime;
+        float currentTime = Time.time - _startTime;
+        float remainingTime = _matchDuration - currentTime;
 
         if (remainingTime <= 0)
         {
             Debug.Log("Time is over! (MT)");
-            onEnded?.Invoke();
+            OnEnded?.Invoke();
         }
     }
 

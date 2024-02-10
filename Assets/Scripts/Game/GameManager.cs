@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject PlayerPrefab;
-    MatchTimer matchTimer = new MatchTimer();
+    public GameObject playerPrefab;
+    MatchTimer _matchTimer = new MatchTimer();
 
-    bool matchEnded;
+    bool _matchEnded;
 
     private void Start()
     {
-        PhotonNetwork.Instantiate(PlayerPrefab.name, new Vector3(Random.Range(-10f, 10f), 2), Quaternion.identity); //TODO:  подправить спавн
+        PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(Random.Range(-10f, 10f), 2), Quaternion.identity); //TODO:  РїРѕРґРїСЂР°РІРёС‚СЊ СЃРїР°РІРЅ
         if (PhotonNetwork.IsMasterClient)
         {
             StartMatch();
@@ -23,27 +21,27 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (!matchEnded)
+        if (!_matchEnded)
         {
-            matchTimer.UpdateTimer();
-        }// не самая лучшая идея как мне кажется, может, лучше через корутину?
+            _matchTimer.UpdateTimer();
+        }// РЅРµ СЃР°РјР°СЏ Р»СѓС‡С€Р°СЏ РёРґРµСЏ РєР°Рє РјРЅРµ РєР°Р¶РµС‚СЃСЏ, РјРѕР¶РµС‚, Р»СѓС‡С€Рµ С‡РµСЂРµР· РєРѕСЂСѓС‚РёРЅСѓ?
     }
 
 
     public void StartMatch()
     {
-        matchTimer.onEnded += MatchEnded;
-        matchTimer.StartTimer();
-        matchEnded = false;
+        _matchTimer.OnEnded += MatchEnded;
+        _matchTimer.StartTimer();
+        _matchEnded = false;
         Debug.Log("Timer has started");
     }
 
-    //TODO: Сделать логику завершения матча
+    //TODO: РЎРґРµР»Р°С‚СЊ Р»РѕРіРёРєСѓ Р·Р°РІРµСЂС€РµРЅРёСЏ РјР°С‚С‡Р°
     public void MatchEnded()
     {
         Debug.Log("Match ended! (GM)");
-        matchTimer.onEnded -= MatchEnded;
-        matchEnded = true;
+        _matchTimer.OnEnded -= MatchEnded;
+        _matchEnded = true;
     }
 
 }
