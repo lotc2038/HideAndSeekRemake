@@ -5,11 +5,14 @@ using UnityEngine;
 public class PlayerProp : PlayerBase, IDamageable
 {
 
-    public PropGun gun;
-
+    public float range = 100f;
+    public MeshRenderer newMeshRenderer;
+    public MeshFilter newMeshFilter;
+    public MeshCollider newMeshCollider;
+    //public Rigidbody newRigidBody;
     private void Start()
     {
-        gun = GetComponentInChildren<PropGun>();
+       // gameObject.GetComponent<MeshRenderer>();
     }
 
     private void Update()
@@ -19,11 +22,15 @@ public class PlayerProp : PlayerBase, IDamageable
 
         if (Input.GetButtonDown("Fire1"))
         {
-            gun.Shoot();
+            ChangeToProp();
         }
 
 
     }
+
+ 
+
+
     public void TakeDamage(int damage)
     {
         health.TakeDamage(damage);
@@ -31,7 +38,26 @@ public class PlayerProp : PlayerBase, IDamageable
 
     public void ChangeToProp()
     {
+        var direction = transform.forward;
+        var ray = new Ray(transform.position, direction);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, range))
+        {
+            var hitCollider = hitInfo.collider;
+            MeshRenderer meshRenderer = hitInfo.collider.GetComponent<MeshRenderer>();
+            MeshCollider meshCollider = hitInfo.collider.GetComponent<MeshCollider>();
+            MeshFilter meshFilter = hitInfo.collider.GetComponent<MeshFilter>();
+          //  Rigidbody rigidbody = hitInfo.collider.GetComponent<Rigidbody>();
+            if (meshFilter != null)
+            {
+                newMeshFilter.mesh = meshFilter.sharedMesh;
+                newMeshRenderer.material = meshRenderer.material;
+                newMeshCollider.sharedMesh = meshCollider.sharedMesh;
+               // newRigidBody = rigidbody;
 
+            }
+        }
     }
 
 }
+
+

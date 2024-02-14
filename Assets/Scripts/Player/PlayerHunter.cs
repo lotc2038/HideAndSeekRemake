@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerHunter : PlayerBase
 {
@@ -28,18 +29,23 @@ public class PlayerHunter : PlayerBase
         //подумать над этими else if
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
+            photonView.RPC("SwitchWeapon", RpcTarget.All, 0);
             SwitchWeapon(0);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2) && guns.Count >= 2)
         {
+            photonView.RPC("SwitchWeapon", RpcTarget.All, 1);
             SwitchWeapon(1);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3) && guns.Count >= 2)
         {
+            photonView.RPC("SwitchWeapon", RpcTarget.All, 2);
             SwitchWeapon(2);
         }
 
     }
+    
+    [PunRPC]
     private void SwitchWeapon(int weaponIndex)
     {
         if (weaponIndex >= 0 && weaponIndex < guns.Count && weaponIndex != currentWeaponIndex)

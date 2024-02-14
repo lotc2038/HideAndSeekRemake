@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
         PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(Random.Range(-10f, 10f), 2), Quaternion.identity); //TODO:  подправить спавн
         if (PhotonNetwork.IsMasterClient)
         {
-            StartMatch();
+            //StartMatch();
         }
     }
 
@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     {
         if (!_matchEnded)
         {
-            _matchTimer.UpdateTimer();
+           // _matchTimer.UpdateTimer();
         }// не самая лучшая идея как мне кажется, может, лучше через корутину?
     }
 

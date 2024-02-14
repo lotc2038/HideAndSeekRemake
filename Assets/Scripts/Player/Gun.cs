@@ -49,7 +49,6 @@ public class Gun : MonoBehaviour
             PerformShot();
         }
 
-
     }
 
     public void PerformShot()

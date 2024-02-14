@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDirection = (verticalInput * cameraForward + horizontalInput * cameraHolder.transform.right).normalized;
 
         // Перемещаем персонаж
-        transform.Translate(moveDirection * moveSpeed * Time.deltaTime, Space.World);
+        rb.velocity = moveDirection * moveSpeed;
     }
 
 
