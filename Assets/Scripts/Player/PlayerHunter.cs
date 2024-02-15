@@ -55,5 +55,10 @@ public class PlayerHunter : PlayerBase
             guns[currentWeaponIndex].gameObject.SetActive(true);
         }
     }
+
+    private void TakeProp()
+    {
+        
+    }
     
 }

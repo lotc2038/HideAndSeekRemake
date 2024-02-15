@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class PlayerProp : PlayerBase, IDamageable
@@ -23,12 +24,12 @@ public class PlayerProp : PlayerBase, IDamageable
         if (Input.GetButtonDown("Fire1"))
         {
             ChangeToProp();
+            photonView.RPC("ChangeToProp", RpcTarget.All);
         }
 
 
     }
-
- 
+    
 
 
     public void TakeDamage(int damage)
@@ -36,6 +37,7 @@ public class PlayerProp : PlayerBase, IDamageable
         health.TakeDamage(damage);
     }
 
+    [PunRPC]
     public void ChangeToProp()
     {
         var direction = transform.forward;
@@ -56,6 +58,12 @@ public class PlayerProp : PlayerBase, IDamageable
 
             }
         }
+    }
+
+
+    public void SayVoiceLine()
+    {
+        
     }
 
 }

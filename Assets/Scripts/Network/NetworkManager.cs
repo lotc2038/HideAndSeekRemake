@@ -17,7 +17,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.NickName = "Player " + Random.Range(1000, 9999);
         PhotonNetwork.AutomaticallySyncScene = true;
-
     }
 
 
@@ -59,12 +58,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        Debug.Log("Joined room");
+        Debug.Log($"{PhotonNetwork.NickName} has joined room");
     }
 
     public override void OnLeftRoom()
     {
-        Debug.Log("Leaved room");
+        Debug.Log($"{PhotonNetwork.NickName} has leaved room");
     }
 
 }

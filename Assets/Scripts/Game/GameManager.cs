@@ -1,11 +1,11 @@
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject playerPrefab;
     MatchTimer _matchTimer = new MatchTimer();
-
     bool _matchEnded;
 
     private void Start()
@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
         PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(Random.Range(-10f, 10f), 2), Quaternion.identity); //TODO:  подправить спавн
         if (PhotonNetwork.IsMasterClient)
         {
+            
             //StartMatch();
         }
     }

@@ -1,18 +1,17 @@
+using System;
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     float mouseSensitivity, moveSpeed, jumpForce, rotateSpeed;
 
     float verticalLookRotation;
     
-    //TODO: Сделать передачу никнейма и команды игрока
-
-
+    
     Rigidbody rb;
     PhotonView pv;
     private Camera cameraHolder;
@@ -31,7 +30,18 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(GetComponentInChildren<Camera>().gameObject);
         }
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
+
+    // private void OnGUI()
+    // {
+    //     int size = 12;
+    //     float posX = cameraHolder.pixelWidth / 2 - size / 4;
+    //     float posY = cameraHolder.pixelHeight / 2 - size / 2;
+    //     GUI.Label(new Rect(posX,posY,size,size), "*");
+    // }
 
     //TODO: Вынести управление в отдельный метод?
     void Update()
@@ -61,7 +71,7 @@ public class PlayerController : MonoBehaviour
         Vector3 cameraForward = Vector3.Scale(cameraHolder.transform.forward, new Vector3(1, 0, 1)).normalized;
         Vector3 moveDirection = (verticalInput * cameraForward + horizontalInput * cameraHolder.transform.right).normalized;
 
-        // Перемещаем персонаж
+   
         rb.velocity = moveDirection * moveSpeed;
     }
 
