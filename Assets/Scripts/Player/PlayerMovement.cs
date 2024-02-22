@@ -42,8 +42,7 @@ public class PlayerMovement : MonoBehaviour
     //     float posY = cameraHolder.pixelHeight / 2 - size / 2;
     //     GUI.Label(new Rect(posX,posY,size,size), "*");
     // }
-
-    //TODO: Вынести управление в отдельный метод?
+    
     void Update()
     {
       if(!pv.IsMine) return;

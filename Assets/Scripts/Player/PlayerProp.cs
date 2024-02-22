@@ -6,14 +6,16 @@ using UnityEngine;
 public class PlayerProp : PlayerBase, IDamageable
 {
 
+    // TODO: Баг при превращении в предмет у другого игрока вызывает исключение collisionmeshdata couldn't be created, скорее всего нельзя передавать меш и прочее, но можно подкрутить модельку
+    
     public float range = 100f;
+    public MeshFilter   newMeshFilter;
     public MeshRenderer newMeshRenderer;
-    public MeshFilter newMeshFilter;
     public MeshCollider newMeshCollider;
-    //public Rigidbody newRigidBody;
+
     private void Start()
     {
-       // gameObject.GetComponent<MeshRenderer>();
+        health = new Health();
     }
 
     private void Update()
@@ -39,27 +41,28 @@ public class PlayerProp : PlayerBase, IDamageable
 
     [PunRPC]
     public void ChangeToProp()
+         {
+             var direction = transform.forward;
+             var ray = new Ray(transform.position, direction);
+     
+             if (Physics.Raycast(ray, out var hitInfo, range))
+             {
+                 var hitProp = hitInfo.collider.GetComponent<Prop>();
+                 if (hitProp != null)
+                 {
+                     UpdateProp(hitProp);
+                     photonView.RPC("UpdateProp", RpcTarget.All, hitProp);
+                 }
+             }
+         }
+
+    [PunRPC]
+    private void UpdateProp(Prop hitProp)
     {
-        var direction = transform.forward;
-        var ray = new Ray(transform.position, direction);
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, range))
-        {
-            var hitCollider = hitInfo.collider;
-            MeshRenderer meshRenderer = hitInfo.collider.GetComponent<MeshRenderer>();
-            MeshCollider meshCollider = hitInfo.collider.GetComponent<MeshCollider>();
-            MeshFilter meshFilter = hitInfo.collider.GetComponent<MeshFilter>();
-          //  Rigidbody rigidbody = hitInfo.collider.GetComponent<Rigidbody>();
-            if (meshFilter != null)
-            {
-                newMeshFilter.mesh = meshFilter.sharedMesh;
-                newMeshRenderer.material = meshRenderer.material;
-                newMeshCollider.sharedMesh = meshCollider.sharedMesh;
-               // newRigidBody = rigidbody;
-
-            }
-        }
+        newMeshFilter.mesh         = hitProp.PropMeshFilter.sharedMesh;
+        newMeshRenderer.material   = hitProp.PropMeshRenderer.material;
+        newMeshCollider.sharedMesh = hitProp.PropMeshCollider.sharedMesh;
     }
-
 
     public void SayVoiceLine()
     {

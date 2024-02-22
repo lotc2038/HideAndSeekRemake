@@ -190,8 +190,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 100
-  newMeshRenderer: {fileID: 996748295581757237}
   newMeshFilter: {fileID: 3988681376099258120}
+  newMeshRenderer: {fileID: 996748295581757237}
   newMeshCollider: {fileID: 66084676446178224}
 --- !u!33 &3988681376099258120
 MeshFilter:
