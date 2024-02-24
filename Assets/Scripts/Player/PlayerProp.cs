@@ -7,6 +7,7 @@ public class PlayerProp : PlayerBase, IDamageable
 {
 
     // TODO: Баг при превращении в предмет у другого игрока вызывает исключение collisionmeshdata couldn't be created, скорее всего нельзя передавать меш и прочее, но можно подкрутить модельку
+    // PS Очень странный фикс в виде активации значения Convex у модели (где связь...)
     
     public float range = 100f;
     public MeshFilter   newMeshFilter;
@@ -26,7 +27,6 @@ public class PlayerProp : PlayerBase, IDamageable
         if (Input.GetButtonDown("Fire1"))
         {
             ChangeToProp();
-            photonView.RPC("ChangeToProp", RpcTarget.All);
         }
 
 
@@ -39,7 +39,7 @@ public class PlayerProp : PlayerBase, IDamageable
         health.TakeDamage(damage);
     }
 
-    [PunRPC]
+
     public void ChangeToProp()
          {
              var direction = transform.forward;
@@ -50,19 +50,37 @@ public class PlayerProp : PlayerBase, IDamageable
                  var hitProp = hitInfo.collider.GetComponent<Prop>();
                  if (hitProp != null)
                  {
-                     UpdateProp(hitProp);
-                     photonView.RPC("UpdateProp", RpcTarget.All, hitProp);
+                     RPC_PropChangeModel(hitProp);
+                     photonView.RPC("RPC_PropChangeModel", RpcTarget.All, hitProp.pv.ViewID);
                  }
              }
          }
-
+    
     [PunRPC]
-    private void UpdateProp(Prop hitProp)
+    void RPC_PropChangeModel(int targetPropID)
+    {
+        if (photonView.IsMine)
+            return;
+
+        PhotonView targetPV = PhotonView.Find(targetPropID);
+
+        if (targetPV.gameObject == null)
+            return;
+
+        newMeshFilter.mesh  = targetPV.gameObject.GetComponent<MeshFilter>().mesh;
+        newMeshRenderer.material   = targetPV.gameObject.GetComponent<MeshRenderer>().material;
+        newMeshCollider.sharedMesh = targetPV.gameObject.GetComponent<MeshCollider>().sharedMesh;
+    }
+    
+    
+    void RPC_PropChangeModel(Prop hitProp)
     {
         newMeshFilter.mesh         = hitProp.PropMeshFilter.sharedMesh;
         newMeshRenderer.material   = hitProp.PropMeshRenderer.material;
         newMeshCollider.sharedMesh = hitProp.PropMeshCollider.sharedMesh;
+        
     }
+    
 
     public void SayVoiceLine()
     {
