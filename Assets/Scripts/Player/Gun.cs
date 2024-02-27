@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -11,24 +12,35 @@ public class Gun : MonoBehaviour
     public int damagePerShot;
     public int range;
     public int fireRate;
+    
+    [Header("Spread")]
     public bool useSpread;
     public int rayCount = 1;
     public float spreadFactor = 1f;
 
+    [Header("Ammo")]
     public int maxAmmo;
+    private int totalAmmo;
     private int currentAmmo;
     public float reloadTime;
+
+    [Header("UI")]
+    public TextMeshProUGUI totalAmmoText;
+    public TextMeshProUGUI currentAmmoText;
+    
     private bool isReadyToShoot = true;
 
 
     private void Start()
     {
         currentAmmo = maxAmmo;
+        currentAmmoText.text = currentAmmo.ToString();
     }
 
     private void OnEnable()
     {
         isReadyToShoot = true;
+        currentAmmoText.text = currentAmmo.ToString();
     }
 
     public virtual void Shoot()

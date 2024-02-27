@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     
     private void SpawnPlayer()
     {
-        PhotonNetwork.Instantiate(_playerPropPrefab.name, new Vector3(Random.Range(-10f, 10f), 4),
+        PhotonNetwork.Instantiate(_playerHunterPrefab.name, new Vector3(Random.Range(-10f, 10f), 4),
                 Quaternion.identity);
     }
 
