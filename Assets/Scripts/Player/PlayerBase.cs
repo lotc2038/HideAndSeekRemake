@@ -6,11 +6,11 @@ using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using TMPro;
 
-public class PlayerBase : MonoBehaviourPunCallbacks
+public class PlayerBase : MonoBehaviourPunCallbacks, IDamageable
 {
 
-    
-    public Health health;
+   public Health health = new Health();
+    public TextMeshProUGUI healthText;
     
     //private TextMeshPro NicknameText; 
 
@@ -19,7 +19,8 @@ public class PlayerBase : MonoBehaviourPunCallbacks
     public void Start()
     {
         
-        
+        Debug.Log(health.GetCurrentHealth());
+        healthText.text = health.GetCurrentHealth().ToString();
         //NicknameText.SetText(photonView.Owner.NickName);
     }
 

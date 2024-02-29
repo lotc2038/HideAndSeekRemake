@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-public class PlayerProp : PlayerBase, IDamageable
+public class PlayerProp : PlayerBase
 {
-
-    // TODO: Баг при превращении в предмет у другого игрока вызывает исключение collisionmeshdata couldn't be created, скорее всего нельзя передавать меш и прочее, но можно подкрутить модельку
-    // PS Очень странный фикс в виде активации значения Convex у модели (где связь...)
     
     public float range = 100f;
     public MeshFilter   newMeshFilter;
@@ -16,7 +13,7 @@ public class PlayerProp : PlayerBase, IDamageable
 
     private void Start()
     {
-        health = new Health();
+  
     }
 
     private void Update()
@@ -32,13 +29,7 @@ public class PlayerProp : PlayerBase, IDamageable
 
     }
     
-
-
-    public void TakeDamage(int damage)
-    {
-        health.TakeDamage(damage);
-    }
-
+    
 
     public void ChangeToProp()
          {

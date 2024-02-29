@@ -2,21 +2,17 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
+
 using Random = UnityEngine.Random;
 
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
-/*
- * TODO: Баг при заходе мастера-клиента на сцену (префаб игрока дублируется), скорее всего связано с особенностью работы фотона, но это не точно
- * Решение 1: Сделать выбор команд до матча, т.е выбирать команду в комнате, после чего уже загружать сцену с игрой и инфой о командах игрока
- * Решение 2: Сделать какую-то задержку (например таймер до начала матча), чтобы все коллбэки успели отработать
- * Решение 3: По сути гибридное решение, сделать выбор команд в сцене с игрой, с помощью какого-то общего префаба игрока и после выбора спавнить нужный (что-то типа спектатора)
- * Решение 4: Сделать метод спавна у игрока и вызывать отсюда по готовности
- */
-
+    
     public GameObject _playerHunterPrefab;
     public GameObject _playerPropPrefab;
+
+  
 
     MatchTimer _matchTimer = new MatchTimer();
     bool _matchEnded;
@@ -64,6 +60,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (!_matchEnded)
         {
             _matchTimer.UpdateTimer();
+            
         }
     }
 

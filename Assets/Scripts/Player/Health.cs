@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Health : IDamageable
 {
+    
     private int currentHealth;
     private const int maxHealth = 100;
     public event Action onDeath;
@@ -14,6 +15,7 @@ public class Health : IDamageable
         currentHealth = maxHealth;
     }
 
+    
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
@@ -25,4 +27,10 @@ public class Health : IDamageable
             onDeath?.Invoke();
         }
     }
+
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
 }

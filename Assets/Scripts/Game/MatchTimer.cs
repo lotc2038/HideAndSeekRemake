@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-
+using TMPro;
 
 public class MatchTimer 
 {
@@ -21,7 +21,6 @@ public class MatchTimer
 
         if (remainingTime <= 0)
         {
-            Debug.Log("Time is over! (MT)");
             OnEnded?.Invoke();
         }
     }
