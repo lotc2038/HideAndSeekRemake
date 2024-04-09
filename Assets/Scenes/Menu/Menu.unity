@@ -479,11 +479,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 132468771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc18eec245be2544694623668f92aafb, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e78b9662750f144da3efc89f343bafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuName: MainMenu
-  open: 1
+  isOpen: 1
+  _playButton: {fileID: 1038327061}
+  _exitButton: {fileID: 834305282}
 --- !u!1 &163047352
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,11 +533,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 163047352}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc18eec245be2544694623668f92aafb, type: 3}
+  m_Script: {fileID: 11500000, guid: d89b6b4621560af4a9bb57fa8292916c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuName: Room
-  open: 0
+  isOpen: 0
 --- !u!1 &186990951
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,18 +826,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 701873650}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: OpenMenu
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 163047354}
-          m_ObjectArgumentAssemblyTypeName: Menu, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1434134660}
         m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
         m_MethodName: CreateRoom
@@ -1533,7 +1521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 866e472eb5ab6f4408b604fa0b89e789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menus:
+  panels:
   - {fileID: 132468773}
   - {fileID: 1346611885}
   - {fileID: 163047354}
@@ -1753,19 +1741,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 834305283}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 701873650}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: QuitGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &834305283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1980,19 +1956,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 960209193}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 701873650}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: OpenMenu
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 132468773}
-          m_ObjectArgumentAssemblyTypeName: Menu, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &960209193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2381,19 +2345,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1038327062}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 701873650}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: OpenMenu
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1346611885}
-          m_ObjectArgumentAssemblyTypeName: Menu, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1038327062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2873,11 +2825,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1346611883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc18eec245be2544694623668f92aafb, type: 3}
+  m_Script: {fileID: 11500000, guid: 687d909fce8700d498891004505b2b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuName: MultiplayerMenu
-  open: 1
+  isOpen: 0
+  _createButton: {fileID: 323973842}
+  _backButton: {fileID: 960209192}
 --- !u!1 &1408743367
 GameObject:
   m_ObjectHideFlags: 0
@@ -3215,12 +3168,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 701873650}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: OpenMenu
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 132468773}
+          m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: Menu, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0

@@ -4,12 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class RoomItem : MonoBehaviour
+public class RoomItem : PanelBase
 {
 
-    [SerializeField]
-    public TMP_Text _text;
+    [SerializeField] private Button _joinButton;
+    [SerializeField] public TMP_Text _text;
 
     public RoomInfo RoomInfo {  get; private set; }
     public void SetRoomInfo(RoomInfo roomInfo)
@@ -18,13 +19,19 @@ public class RoomItem : MonoBehaviour
         _text.text = roomInfo.MaxPlayers + ", " + roomInfo.Name;
     }
 
-    public void OnClick()
+    protected override void OnOpened()
     {
-        PhotonNetwork.JoinRoom(RoomInfo.Name);
-        MenuManager.Instance.OpenMenu("Room");
+        _joinButton.onClick.AddListener(OnJoinButtonClick);
     }
 
+    private void OnJoinButtonClick()
+    {
+        PhotonNetwork.JoinRoom(RoomInfo.Name);
+        PanelManager.Instance.OpenPanel<Room>();
+    }
 
-
-
+    protected override void OnClosed()
+    {
+        _joinButton.onClick.RemoveListener(OnJoinButtonClick);
+    }
 }
