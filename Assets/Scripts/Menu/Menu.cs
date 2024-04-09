@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 
-public class PanelBase : MonoBehaviour
+public class Menu : MonoBehaviour
 {
     public string menuName;
     public bool open;
