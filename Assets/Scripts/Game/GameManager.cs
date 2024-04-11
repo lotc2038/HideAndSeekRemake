@@ -21,37 +21,50 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            CreateTeams();
+            
             
         }
         StartMatch();
+      //  SpawnPlayer();
+    }
+
+    private void OnEnable()
+    {
+        PhotonTeamsManager.PlayerJoinedTeam += OnPlayerJoinedTeam;
+        PhotonTeamsManager.PlayerLeftTeam += OnPlayerLeftTeam;
+    }
+    
+    
+
+    private void OnPlayerJoinedTeam(Player player, PhotonTeam team)
+    {
+        Debug.LogFormat("Player {0} joined team {1}", player, team);
         SpawnPlayer();
     }
-
-    private void CreateTeams()
+    
+    private void OnPlayerLeftTeam(Player player, PhotonTeam team)
     {
-        Player[] players = PhotonNetwork.PlayerList;
-
-        
-        for(int i = 0; i < players.Length; i++)
-        {
-            if (i % 2 == 0)
-            {
-                players[i].JoinTeam(1);
-            }
-            else
-            {
-                players[i].JoinTeam(2);
-            }
-        }
+        Debug.LogFormat("Player {0} left team {1}", player, team);
     }
-
-
     
     private void SpawnPlayer()
     {
-        PhotonNetwork.Instantiate(_playerHunterPrefab.name, new Vector3(Random.Range(-10f, 10f), 4),
+        //можно onplayerjoinedteam вызывать метод спавна
+        
+        Player player = PhotonNetwork.LocalPlayer;
+
+        if (player.GetPhotonTeam().Code == 1)
+        {
+
+            PhotonNetwork.Instantiate(_playerHunterPrefab.name, new Vector3(Random.Range(-10f, 10f), 4),
                 Quaternion.identity);
+        }
+
+        if (player.GetPhotonTeam().Code == 2)
+        {
+            PhotonNetwork.Instantiate(_playerPropPrefab.name, new Vector3(Random.Range(-10f, 10f), 4),
+                Quaternion.identity);
+        }
     }
 
     

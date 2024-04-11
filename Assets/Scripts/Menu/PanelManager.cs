@@ -10,6 +10,7 @@ public class PanelManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        DontDestroyOnLoad(this);
     }
     
     

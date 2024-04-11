@@ -1,3 +1,4 @@
+using System;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
@@ -13,6 +14,13 @@ public class RoomItem : PanelBase
     [SerializeField] public TMP_Text _text;
 
     public RoomInfo RoomInfo {  get; private set; }
+
+    private void OnEnable()
+    {
+        _joinButton.onClick.AddListener(OnJoinButtonClick);
+        Debug.Log("Listener added");
+    }
+
     public void SetRoomInfo(RoomInfo roomInfo)
     {
         RoomInfo = roomInfo;    
@@ -22,10 +30,12 @@ public class RoomItem : PanelBase
     protected override void OnOpened()
     {
         _joinButton.onClick.AddListener(OnJoinButtonClick);
+        Debug.Log("Listener added");
     }
 
     private void OnJoinButtonClick()
     {
+        Debug.Log("Clicked");
         PhotonNetwork.JoinRoom(RoomInfo.Name);
         PanelManager.Instance.OpenPanel<Room>();
     }
