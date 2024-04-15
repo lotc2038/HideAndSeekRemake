@@ -14,11 +14,16 @@ public class Room : PanelBase
     private void OnStartButtonClick()
     {
         PanelManager.Instance.OpenPanel<TeamSelectionPanel>();
+<<<<<<< HEAD
         
     }
 
    
     
+=======
+    }
+
+>>>>>>> e25b2fa0c486a026b983f6ebacc7fad5e109cfa7
     protected override void OnClosed()
     {
         _startButton.onClick.RemoveListener(OnStartButtonClick);
