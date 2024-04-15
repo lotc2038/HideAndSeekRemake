@@ -10,7 +10,7 @@ public class PlayerBase : MonoBehaviourPunCallbacks, IDamageable
 {
 
    public Health health = new Health();
-    public TextMeshProUGUI healthText;
+
     
     //private TextMeshPro NicknameText; 
 
@@ -18,9 +18,8 @@ public class PlayerBase : MonoBehaviourPunCallbacks, IDamageable
     
     public void Start()
     {
-        
         Debug.Log(health.GetCurrentHealth());
-        healthText.text = health.GetCurrentHealth().ToString();
+
         //NicknameText.SetText(photonView.Owner.NickName);
     }
 

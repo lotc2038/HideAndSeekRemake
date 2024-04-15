@@ -31,8 +31,8 @@ public class PlayerMovement : MonoBehaviour
             Destroy(GetComponentInChildren<Camera>().gameObject);
         }
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+       // Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
     }
 
     // private void OnGUI()

@@ -48,6 +48,8 @@ MonoBehaviour:
   - Spawn
   - UpdateProp
   - RPC_PropChangeModel
+  - HudStarter
+  - Starter
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

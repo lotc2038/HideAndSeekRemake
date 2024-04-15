@@ -24,9 +24,7 @@ public class Gun : MonoBehaviour
     private int currentAmmo;
     public float reloadTime;
 
-    [Header("UI")]
-    public TextMeshProUGUI totalAmmoText;
-    public TextMeshProUGUI currentAmmoText;
+
     
     private bool isReadyToShoot = true;
 
@@ -34,13 +32,11 @@ public class Gun : MonoBehaviour
     private void Start()
     {
         currentAmmo = maxAmmo;
-        currentAmmoText.text = currentAmmo.ToString();
     }
 
     private void OnEnable()
     {
         isReadyToShoot = true;
-        currentAmmoText.text = currentAmmo.ToString();
     }
 
     public virtual void Shoot()

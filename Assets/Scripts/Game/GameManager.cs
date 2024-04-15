@@ -19,39 +19,54 @@ public class GameManager : MonoBehaviourPunCallbacks
     
     private void Start()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            CreateTeams();
-            
-        }
+        PanelManager.Instance.OpenPanel<TeamSelectionPanel>();
         StartMatch();
-        SpawnPlayer();
     }
 
-    private void CreateTeams()
+    private void OnEnable()
     {
-        Player[] players = PhotonNetwork.PlayerList;
+        PhotonTeamsManager.PlayerJoinedTeam += OnPlayerJoinedTeam;
+        PhotonTeamsManager.PlayerLeftTeam += OnPlayerLeftTeam;
+    }
+    
+    
 
-        
-        for(int i = 0; i < players.Length; i++)
+    private void OnPlayerJoinedTeam(Player player, PhotonTeam team)
+    {
+        if (player.IsLocal)
         {
-            if (i % 2 == 0)
-            {
-                players[i].JoinTeam(1);
-            }
-            else
-            {
-                players[i].JoinTeam(2);
-            }
+            Debug.LogFormat("Player {0} joined team {1}", player, team);
+            SpawnPlayer();
         }
     }
-
-
+    
+    private void OnPlayerLeftTeam(Player player, PhotonTeam team)
+    {
+        Debug.LogFormat("Player {0} left team {1}", player, team);
+    }
     
     private void SpawnPlayer()
     {
-        PhotonNetwork.Instantiate(_playerHunterPrefab.name, new Vector3(Random.Range(-10f, 10f), 4),
+        
+        Player player = PhotonNetwork.LocalPlayer;
+
+        if (player.GetPhotonTeam().Code == 1)
+        {
+            PhotonNetwork.Instantiate(_playerHunterPrefab.name, new Vector3(Random.Range(-10f, 10f), 4),
                 Quaternion.identity);
+            PanelManager.Instance.OpenPanel<HunterHUD>();
+        }
+
+        if (player.GetPhotonTeam().Code == 2)
+        {
+            PhotonNetwork.Instantiate(_playerPropPrefab.name, new Vector3(Random.Range(-10f, 10f), 4),
+                Quaternion.identity);
+            PanelManager.Instance.OpenPanel<PropHUD>();
+        }
+        
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        
     }
 
     

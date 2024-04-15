@@ -33,6 +33,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel("Test");
     }
 
+   
 
     public void LeaveRoom()
     {
