@@ -9,7 +9,7 @@ public class Health : IDamageable
     private int currentHealth;
     private const int maxHealth = 100;
     public event Action onDeath;
-
+    
     public Health()
     {
         currentHealth = maxHealth;
@@ -32,5 +32,7 @@ public class Health : IDamageable
     {
         return currentHealth;
     }
-
+    
+    
+    
 }

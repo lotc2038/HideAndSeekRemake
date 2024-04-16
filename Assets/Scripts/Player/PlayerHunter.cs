@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class PlayerHunter : PlayerBase
+public class PlayerHunter : MonoBehaviourPunCallbacks
 {
     public List<Gun> guns;
     public int currentWeaponIndex = 0;

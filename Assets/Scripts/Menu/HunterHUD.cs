@@ -5,5 +5,19 @@ using TMPro;
 
 public class HunterHUD : PanelBase
 {
-    public TextMeshProUGUI textHunter;
+    public TextMeshProUGUI healthText;
+    public TextMeshProUGUI ammoText;
+
+    public void AmmoUpdate(int ammo)
+    {
+        ammoText.text = ammo.ToString();
+    }
+
+    public void HealthUpdate(int health)
+    {
+        
+    }
+
+  
+    
 }
