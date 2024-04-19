@@ -23,8 +23,7 @@ public class Gun : MonoBehaviour
     private int totalAmmo;
     private int currentAmmo;
     public float reloadTime;
-
-
+    
     
     private bool isReadyToShoot = true;
 
@@ -49,17 +48,19 @@ public class Gun : MonoBehaviour
            isReadyToShoot = false;
            Debug.Log("Need reload");
            StartCoroutine(Reload());
+           HUD.Instance.AmmoUpdate(currentAmmo);
            return;
         }
 
         for (int i = 0; i < rayCount; i++)
         {
             PerformShot();
+            HUD.Instance.AmmoUpdate(currentAmmo);
         }
 
     }
 
-    public void PerformShot()
+    private void PerformShot()
     {
         var direction = useSpread? transform.forward + CalculateSpread() : transform.forward;
         var ray = new Ray(transform.position, direction);

@@ -28,20 +28,28 @@ public class PlayerBase : MonoBehaviourPunCallbacks, IDamageable
     
     public void TakeDamage(int damage)
     {
-        // health.TakeDamage(damage);
         photonView.RPC("RPC_TakeDamage", RpcTarget.All, damage);
     }
 
     [PunRPC]
     public void RPC_TakeDamage(int damage)
     {
-        health.TakeDamage(damage);
+        if (photonView.IsMine)
+        {
+            health.TakeDamage(damage);
+            HUD.Instance.HealthUpdate(health.GetCurrentHealth());
+        }
     }
     
     public void Death()
     {
+        photonView.RPC("RPC_Death", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void RPC_Death()
+    {
         Destroy(this.gameObject);
     }
-    
 
 }

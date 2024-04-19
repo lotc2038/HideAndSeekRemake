@@ -20,7 +20,7 @@ public class Health : IDamageable
     {
         currentHealth -= damage;
         Debug.Log($"Current Health: {currentHealth}");
-
+        
         if (currentHealth <= 0)
         {
             Debug.Log("Dead");

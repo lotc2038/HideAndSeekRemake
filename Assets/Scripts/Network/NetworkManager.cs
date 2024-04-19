@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,20 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 using TMPro;
+using Random = UnityEngine.Random;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     public TMP_Text roomName;
+
+    
+    public static NetworkManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -40,7 +50,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
-
+   
 
     public override void OnConnectedToMaster()
     {
@@ -67,4 +77,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log($"{PhotonNetwork.NickName} has leaved room");
     }
 
+   
+    
 }

@@ -54,14 +54,16 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.Instantiate(_playerHunterPrefab.name, new Vector3(Random.Range(-10f, 10f), 4),
                 Quaternion.identity);
-            PanelManager.Instance.OpenPanel<HunterHUD>();
+            //PanelManager.Instance.OpenPanel<HunterHUD>();
+            PanelManager.Instance.OpenPanel<HUD>();
         }
 
         if (player.GetPhotonTeam().Code == 2)
         {
             PhotonNetwork.Instantiate(_playerPropPrefab.name, new Vector3(Random.Range(-10f, 10f), 4),
                 Quaternion.identity);
-            PanelManager.Instance.OpenPanel<PropHUD>();
+           // PanelManager.Instance.OpenPanel<PropHUD>();
+           PanelManager.Instance.OpenPanel<HUD>();
         }
         
         Cursor.lockState = CursorLockMode.Locked;
