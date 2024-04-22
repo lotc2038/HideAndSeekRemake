@@ -12,17 +12,46 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject _playerHunterPrefab;
     public GameObject _playerPropPrefab;
 
-  
-
-    MatchTimer _matchTimer = new MatchTimer();
+    private MatchTimer _matchTimer = new MatchTimer();
     bool _matchEnded;
     
+    private enum MatchPhase
+    {
+        TeamSelection,
+        WarmUp,
+        MainMatch
+    }
+    
+    private MatchPhase _currentPhase = MatchPhase.TeamSelection;
     private void Start()
     {
+        _matchTimer.OnTimerEnd += OnPhaseEnd;
+        _matchTimer.StartTimer(10f);
+        Debug.Log("TeamSelect");
         PanelManager.Instance.OpenPanel<TeamSelectionPanel>();
-        StartMatch();
     }
 
+    
+    private void OnPhaseEnd()
+    {
+        switch (_currentPhase)
+        {
+            case MatchPhase.TeamSelection:
+                _currentPhase = MatchPhase.WarmUp;
+                Debug.Log("WarmUp");
+                _matchTimer.StartTimer(30f);
+                break;
+            case MatchPhase.WarmUp:
+                _currentPhase = MatchPhase.MainMatch;
+                _matchTimer.StartTimer(300f);
+                Debug.Log("MainMatch");
+                break;
+            case MatchPhase.MainMatch:
+                
+                break;
+        }
+    }
+    
     private void OnEnable()
     {
         PhotonTeamsManager.PlayerJoinedTeam += OnPlayerJoinedTeam;
@@ -85,8 +114,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     // Вроде как у фотона есть своя реализация таймера
     private void StartMatch()
     {
-        _matchTimer.OnEnded += MatchEnded;
-        _matchTimer.StartTimer();
+  
+       
         _matchEnded = false;
         Debug.Log("Timer has started");
     }
@@ -95,7 +124,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void MatchEnded()
     {
         Debug.Log("Match ended! (GM)");
-        _matchTimer.OnEnded -= MatchEnded;
+        
         _matchEnded = true;
     }
 }

@@ -37,7 +37,7 @@ public class RoomListings : MonoBehaviourPunCallbacks
     }
     
 
-    void UpdateList()
+    private void UpdateList()
     {
         foreach (Transform roomItem in _content)
         {

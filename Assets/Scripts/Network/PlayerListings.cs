@@ -14,34 +14,45 @@ public class PlayerListings : MonoBehaviourPunCallbacks
     private PlayerItem _playerItem;
 
     private List<PlayerItem> _playerListigs = new List<PlayerItem>();
-
-    //TODO: Сделать удаление игроков из списка при выходе, добавить игрока-хоста в список игроков
+    
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        PlayerItem playerItem = Instantiate(_playerItem, _content);
-
-        if (playerItem != null)
-        {
-            _playerItem.SetInfo(newPlayer);
-            _playerListigs.Add(playerItem);
-        }
-        
+        _playerItem.SetInfo(newPlayer);
+        Instantiate(_playerItem, _content);
+        _playerListigs.Add(_playerItem);
+        UpdateList();
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        int index = _playerListigs.FindIndex(x => x.player == otherPlayer);
+        int index = _playerListigs.FindIndex(x => x.player.NickName == otherPlayer.NickName);
 
         if (index != -1)
         {
-            Destroy(_playerListigs[index].gameObject);
             _playerListigs.RemoveAt(index);
         }
+        
+        UpdateList();
     }
 
-    public override void OnLeftRoom()
+
+    public override void OnJoinedRoom()
     {
-       
+       UpdateList();
+    }
+    
+   private void UpdateList()
+    {
+        foreach (Transform playerItem in _content)
+        {
+            Destroy(playerItem.gameObject);
+        }
+
+        foreach (var player in PhotonNetwork.PlayerList)
+        {
+            _playerItem.SetInfo(player);
+            Instantiate(_playerItem, _content);
+        }
     }
   
     

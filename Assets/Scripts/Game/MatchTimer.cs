@@ -5,23 +5,20 @@ using TMPro;
 public class MatchTimer 
 {
     private float _startTime;
-    private float _matchDuration = 15.0f;
+    private float _duration;
+    public Action OnTimerEnd;
 
-    public event Action OnEnded;
-
-    public void StartTimer()
+    public void StartTimer(float duration)
     {
+        _duration = duration;
         _startTime = Time.time;
     }
 
     public void UpdateTimer()
     {
-        float currentTime = Time.time - _startTime;
-        float remainingTime = _matchDuration - currentTime;
-
-        if (remainingTime <= 0)
+        if (Time.time - _startTime >= _duration)
         {
-            OnEnded?.Invoke();
+            OnTimerEnd?.Invoke();
         }
     }
 
