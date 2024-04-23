@@ -10,7 +10,7 @@ public class PlayerBase : MonoBehaviourPunCallbacks, IDamageable
 {
 
     public Health health;
-
+    public GameObject Spec;
     
     //private TextMeshPro NicknameText; 
 
@@ -48,8 +48,9 @@ public class PlayerBase : MonoBehaviourPunCallbacks, IDamageable
 
     [PunRPC]
     public void RPC_Death()
-    {
-        Destroy(this.gameObject);
+    { 
+        gameObject.SetActive(false);
+        Instantiate(Spec);
     }
 
 }

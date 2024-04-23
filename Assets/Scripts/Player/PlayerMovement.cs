@@ -6,15 +6,21 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
-    float mouseSensitivity, moveSpeed, jumpForce, rotateSpeed;
+    [Header("Movement")] 
+    
+    [SerializeField]  private float mouseSensitivity;
+    [SerializeField]  private float moveSpeed;
+    [SerializeField]  private float jumpForce;
+    [SerializeField]  private float rotateSpeed;
+    [SerializeField]  public LayerMask groundLayer;
+    private bool isGrounded = true;
 
     float verticalLookRotation;
     
     
-    Rigidbody rb;
-    PhotonView pv;
-    private Camera cameraHolder;
+   private Rigidbody rb;
+   private PhotonView pv;
+   private Camera cameraHolder;
 
     private void Awake()
     {
@@ -31,28 +37,20 @@ public class PlayerMovement : MonoBehaviour
             Destroy(GetComponentInChildren<Camera>().gameObject);
         }
 
-       // Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
     }
 
-    // private void OnGUI()
-    // {
-    //     int size = 12;
-    //     float posX = cameraHolder.pixelWidth / 2 - size / 4;
-    //     float posY = cameraHolder.pixelHeight / 2 - size / 2;
-    //     GUI.Label(new Rect(posX,posY,size,size), "*");
-    // }
+
     
-    void Update()
+   private void Update()
     {
       if(!pv.IsMine) return;
 
         Look();
         Move();
-       
+        Jump();
     }
 
-    void Look()
+   private void Look()
     {
         transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * mouseSensitivity);
 
@@ -62,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
         cameraHolder.transform.localEulerAngles = Vector3.left * verticalLookRotation;
     }
 
-    void Move()
+   private void Move()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -74,10 +72,21 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = moveDirection * moveSpeed;
     }
 
+    private void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded ==true )
+        {
+            isGrounded = false;
+            rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+        }
+    }
 
- 
-
-
-
-
+   private  void OnCollisionEnter(Collision collision)
+    {
+        if ((groundLayer & 1 << collision.gameObject.layer) != 0)
+        {
+            isGrounded = true;
+        }
+    }
+    
 }

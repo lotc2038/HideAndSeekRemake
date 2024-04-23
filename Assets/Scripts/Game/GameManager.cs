@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
@@ -8,21 +10,17 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
-    
     public GameObject _playerHunterPrefab;
     public GameObject _playerPropPrefab;
 
     private MatchTimer _matchTimer = new MatchTimer();
-    bool _matchEnded;
-    
-    private enum MatchPhase
-    {
-        TeamSelection,
-        WarmUp,
-        MainMatch
-    }
-    
     private MatchPhase _currentPhase = MatchPhase.TeamSelection;
+    private bool _matchEnded;
+
+    private List<Player> _teamHunters = new List<Player>();
+    private List<Player> _teamProps = new List<Player>();
+    
+    
     private void Start()
     {
         _matchTimer.OnTimerEnd += OnPhaseEnd;
@@ -39,6 +37,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             case MatchPhase.TeamSelection:
                 _currentPhase = MatchPhase.WarmUp;
                 Debug.Log("WarmUp");
+               // StartCoroutine(ShowBlackscreen());
                 _matchTimer.StartTimer(30f);
                 break;
             case MatchPhase.WarmUp:
@@ -47,7 +46,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 Debug.Log("MainMatch");
                 break;
             case MatchPhase.MainMatch:
-                
+                //вывод скорборда
                 break;
         }
     }
@@ -76,27 +75,24 @@ public class GameManager : MonoBehaviourPunCallbacks
     
     private void SpawnPlayer()
     {
-        
+        //можно просто отправлять сюда номер команды и спавнить, зачем еще раз получать   
         Player player = PhotonNetwork.LocalPlayer;
 
         if (player.GetPhotonTeam().Code == 1)
         {
-            PhotonNetwork.Instantiate(_playerHunterPrefab.name, new Vector3(Random.Range(-10f, 10f), 4),
+            PhotonNetwork.Instantiate(_playerHunterPrefab.name, new Vector3(Random.Range(-10f, 10f), 6),
                 Quaternion.identity);
-            //PanelManager.Instance.OpenPanel<HunterHUD>();
+            _teamHunters.Add(player);
             PanelManager.Instance.OpenPanel<HUD>();
         }
 
         if (player.GetPhotonTeam().Code == 2)
         {
-            PhotonNetwork.Instantiate(_playerPropPrefab.name, new Vector3(Random.Range(-10f, 10f), 4),
+            PhotonNetwork.Instantiate(_playerPropPrefab.name, new Vector3(Random.Range(-10f, 10f), 6),
                 Quaternion.identity);
-           // PanelManager.Instance.OpenPanel<PropHUD>();
+            _teamProps.Add(player);
            PanelManager.Instance.OpenPanel<HUD>();
         }
-        
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
         
     }
 
@@ -106,25 +102,19 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (!_matchEnded)
         {
             _matchTimer.UpdateTimer();
-            
         }
     }
 
 
-    // Вроде как у фотона есть своя реализация таймера
-    private void StartMatch()
+    public IEnumerator ShowBlackscreen()
     {
+        foreach (var player in _teamHunters)
+        {
+            PanelManager.Instance.OpenPanel<Blackscreen>();
+        }
+        yield return new WaitForSeconds(30f);
+    }
   
-       
-        _matchEnded = false;
-        Debug.Log("Timer has started");
-    }
-
-    //TODO: Сделать логику завершения матча
-    private void MatchEnded()
-    {
-        Debug.Log("Match ended! (GM)");
-        
-        _matchEnded = true;
-    }
+    
+    
 }

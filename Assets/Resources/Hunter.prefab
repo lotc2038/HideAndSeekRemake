@@ -345,8 +345,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 2
   moveSpeed: 4
-  jumpForce: 0
+  jumpForce: 5
   rotateSpeed: 5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &2018812825418676508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,7 +388,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -402,6 +405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd1f79184620c3d4fb1115772e29efd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Spec: {fileID: 1863611076681079296, guid: c98ccce9fa34ad74fadbb4c7a430ba4e, type: 3}
 --- !u!114 &619226672541677892
 MonoBehaviour:
   m_ObjectHideFlags: 0

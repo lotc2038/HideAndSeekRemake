@@ -22,6 +22,8 @@ public class HUD : PanelBase
     //костыльное решение, но пока сойдет
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         Player player = PhotonNetwork.LocalPlayer;
         if (player.GetPhotonTeam().Code == 1)
         {
