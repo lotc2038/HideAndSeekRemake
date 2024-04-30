@@ -9,16 +9,16 @@ using TMPro;
 public class PlayerBase : MonoBehaviourPunCallbacks, IDamageable
 {
 
-    public Health health;
+    public Health health = new Health();
     public GameObject Spec;
     
     //private TextMeshPro NicknameText; 
 
     //TODO: Нужно сделать сеттер для изменения скорости игрока
     
-    public void Start()
+    public void Awake()
     {
-        health = new Health();
+        //health = new Health();
         Debug.Log(health.GetCurrentHealth());
         health.onDeath += Death;
         //NicknameText.SetText(photonView.Owner.NickName);

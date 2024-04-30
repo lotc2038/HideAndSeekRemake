@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-public class PlayerProp : MonoBehaviourPunCallbacks
+public class PlayerProp : PlayerBase
 {
     
     public float range = 100f;
@@ -13,7 +13,7 @@ public class PlayerProp : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-  
+        
     }
     
 

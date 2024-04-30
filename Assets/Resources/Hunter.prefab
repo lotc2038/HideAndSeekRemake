@@ -209,7 +209,6 @@ GameObject:
   - component: {fileID: 7481557871015610138}
   - component: {fileID: 2018812825418676508}
   - component: {fileID: 6358014265465539306}
-  - component: {fileID: 8100360084603115050}
   - component: {fileID: 619226672541677892}
   m_Layer: 0
   m_Name: Hunter
@@ -392,19 +391,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &8100360084603115050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3071730000874542495}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd1f79184620c3d4fb1115772e29efd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Spec: {fileID: 1863611076681079296, guid: c98ccce9fa34ad74fadbb4c7a430ba4e, type: 3}
 --- !u!114 &619226672541677892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,6 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e056ec1618882324d92213ad2936f6e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Spec: {fileID: 0}
   guns:
   - {fileID: 5091163654668316811}
   - {fileID: 5717111065950893850}

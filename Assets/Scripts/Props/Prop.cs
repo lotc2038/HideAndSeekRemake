@@ -10,6 +10,8 @@ public class Prop : MonoBehaviourPunCallbacks, IDamageable
     public MeshCollider PropMeshCollider { get; private set; }
     public MeshFilter   PropMeshFilter   { get; private set; }
     
+    //TODO: Может сделать тип объекта (легкий, средний, тяжелый) и на основе этого ставить скорость?
+    
     public  PhotonView pv;
     public void TakeDamage(int damage)
     {
@@ -23,5 +25,6 @@ public class Prop : MonoBehaviourPunCallbacks, IDamageable
         PropMeshCollider = GetComponent<MeshCollider>();
         PropMeshFilter   = GetComponent<MeshFilter>();
     }
+    
     
 }

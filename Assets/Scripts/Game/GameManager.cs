@@ -10,15 +10,15 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
-    public GameObject _playerHunterPrefab;
-    public GameObject _playerPropPrefab;
+   [SerializeField] private GameObject _playerHunterPrefab;
+   [SerializeField] private GameObject _playerPropPrefab;
 
     private MatchTimer _matchTimer = new MatchTimer();
     private MatchPhase _currentPhase = MatchPhase.TeamSelection;
     private bool _matchEnded;
 
-    private List<Player> _teamHunters = new List<Player>();
-    private List<Player> _teamProps = new List<Player>();
+    public static List<Player> _teamHunters = new List<Player>();
+    public static List<Player> _teamProps = new List<Player>();
     
     
     private void Start()
@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             PhotonNetwork.Instantiate(_playerPropPrefab.name, new Vector3(Random.Range(5, 15f), 4, 7),
                 Quaternion.identity);
             _teamProps.Add(player);
+            player.TagObject = this.gameObject;
            PanelManager.Instance.OpenPanel<HUD>();
         }
         

@@ -9,7 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")] 
     
     [SerializeField]  private float mouseSensitivity;
-    [SerializeField]  private float moveSpeed;
+
+    [SerializeField] private float moveSpeed { get; set; }
     [SerializeField]  private float jumpForce;
     [SerializeField]  private float rotateSpeed;
     [SerializeField]  public LayerMask groundLayer;
