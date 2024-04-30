@@ -15,6 +15,7 @@ public class PlayerProp : MonoBehaviourPunCallbacks
     {
   
     }
+    
 
     private void Update()
     {

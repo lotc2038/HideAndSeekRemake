@@ -1,63 +1,61 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 public class PlayerSpectator : MonoBehaviour
 {
-
+    
     public Camera playerCamera;
 
-    public float moveSpeed;
+    private PhotonView pv;
 
-    public float sensX;
-    public float sensY;
-    
-    public float minY;
-    public float maxY;
-    
-    private float rotX;
-    private float rotY;
-    
-    
-    private Rigidbody rb;
-    
+    private int currentPlayerIndex = 0;
 
-    void Start()
+    private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        pv = GetComponent<PhotonView>();
     }
 
-    void Update()
+    private void Start()
     {
-
-        rotX += Input.GetAxis("Mouse X") * sensX;
-        rotY += Input.GetAxis("Mouse Y") * sensY;
-        
-        rotY = Mathf.Clamp(rotY, minY, maxY);
-        
-        transform.rotation = Quaternion.Euler(-rotY, rotX, 0);
-        
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-        float y = 0;
-
-        if (Input.GetKey(KeyCode.E))
-            y = 1;
-        else if (Input.GetKey(KeyCode.Q))
-            y = -1;
-
-        Vector3 dir = transform.right * x + transform.up * y + transform.forward * z;
-
-        transform.position += dir * moveSpeed * Time.deltaTime;
-
+        if(!pv.IsMine)
+            return;
     }
 
-    void FixedUpdate()
+    private void Update()
     {
-       
+        if(!pv.IsMine)
+            return;
+        // Переключение между игроками с помощью клавиш
+        if (Input.GetButtonDown("Fire1"))
+        {
+            SwitchToNextPlayer();
+        }
     }
+
+    private void SwitchToNextPlayer()
+    {
+        // Получаем текущего игрока
+        Player[] players = PhotonNetwork.PlayerList;
+        int currentPlayerIndex = Array.IndexOf(players, PhotonNetwork.LocalPlayer);
+
+        // Выбираем следующего игрока
+        int nextPlayerIndex = (currentPlayerIndex + 1) % players.Length;
+        Player nextPlayer = players[nextPlayerIndex];
+
+        // Переключаемся на камеру следующего игрока
+        GameObject nextPlayerGameObject = GameObject.Find(nextPlayer.UserId); // Предполагается, что игроки именованы по никнеймам
+        if (nextPlayerGameObject != null)
+        {
+            Transform playerTransform = nextPlayerGameObject.transform;
+            Camera.main.transform.position = playerTransform.position - playerTransform.forward * 15f + Vector3.up * 5f;
+            Camera.main.transform.LookAt(playerTransform.position);
+        }
+    }
+  
 }
     
 

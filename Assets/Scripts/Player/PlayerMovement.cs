@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     float verticalLookRotation;
     
-    
+    //TODO: Может вынести управление в интерфейс?
    private Rigidbody rb;
    private PhotonView pv;
    private Camera cameraHolder;

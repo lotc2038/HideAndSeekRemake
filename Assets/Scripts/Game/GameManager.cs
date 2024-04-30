@@ -68,6 +68,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
     
+ 
+    
     private void OnPlayerLeftTeam(Player player, PhotonTeam team)
     {
         Debug.LogFormat("Player {0} left team {1}", player, team);
@@ -80,15 +82,16 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (player.GetPhotonTeam().Code == 1)
         {
-            PhotonNetwork.Instantiate(_playerHunterPrefab.name, new Vector3(Random.Range(-10f, 10f), 6),
+            PhotonNetwork.Instantiate(_playerHunterPrefab.name, new Vector3(Random.Range(5, 15f), 4,7),
                 Quaternion.identity);
             _teamHunters.Add(player);
+            player.TagObject = this.gameObject;
             PanelManager.Instance.OpenPanel<HUD>();
         }
 
         if (player.GetPhotonTeam().Code == 2)
         {
-            PhotonNetwork.Instantiate(_playerPropPrefab.name, new Vector3(Random.Range(-10f, 10f), 6),
+            PhotonNetwork.Instantiate(_playerPropPrefab.name, new Vector3(Random.Range(5, 15f), 4, 7),
                 Quaternion.identity);
             _teamProps.Add(player);
            PanelManager.Instance.OpenPanel<HUD>();

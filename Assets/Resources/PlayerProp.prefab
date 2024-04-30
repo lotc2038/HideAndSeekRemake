@@ -119,8 +119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 2
-  moveSpeed: 4
-  jumpForce: 5
+  moveSpeed: 6
+  jumpForce: 8
   rotateSpeed: 5
   groundLayer:
     serializedVersion: 2

@@ -14,7 +14,7 @@ public class PlayerBase : MonoBehaviourPunCallbacks, IDamageable
     
     //private TextMeshPro NicknameText; 
 
-    
+    //TODO: Нужно сделать сеттер для изменения скорости игрока
     
     public void Start()
     {
@@ -44,13 +44,14 @@ public class PlayerBase : MonoBehaviourPunCallbacks, IDamageable
     public void Death()
     {
         photonView.RPC("RPC_Death", RpcTarget.All);
+        PhotonNetwork.Instantiate(Spec.name, gameObject.transform.position, Quaternion.identity);
     }
 
     [PunRPC]
     public void RPC_Death()
     { 
         gameObject.SetActive(false);
-        Instantiate(Spec);
+       // PhotonNetwork.Instantiate(Spec.name, gameObject.transform.position, Quaternion.identity);
     }
 
 }
